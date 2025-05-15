@@ -1,0 +1,3 @@
+C:/Users/KIIT/Desktop/Project/TaskScheduler/build/CMakeFiles/scheduler.dir
+C:/Users/KIIT/Desktop/Project/TaskScheduler/build/CMakeFiles/edit_cache.dir
+C:/Users/KIIT/Desktop/Project/TaskScheduler/build/CMakeFiles/rebuild_cache.dir
