@@ -25,6 +25,21 @@ data/: Directory for the SQLite database (tasks.db).
 
 build/: Build directory for compiled files.
 
+
+Task_Scheduler/
+├── src/
+│   ├── main.cpp
+│   ├── task.hpp
+│   ├── task.cpp
+│   ├── scheduler.hpp
+│   ├── scheduler.cpp
+│   ├── db_manager.hpp
+│   ├── db_manager.cpp
+├── data/
+├── .gitignore
+├── CMakeLists.txt
+├── README.md
+
 ## Build Instructions
 
 Clone the repository:git clone https://github.com/Opikadash/Task_Scheduler.git
