@@ -1,116 +1,116 @@
-# Task Scheduler (Priority Queue)
-A C++ task scheduler that implements non-preemptive priority scheduling, manages tasks using a priority queue, and logs task completion details to a SQLite database.
+# Task Scheduler 
+
+A C++ implementation of a Task Scheduler using a priority queue for non-preemptive scheduling, with task logging to a SQLite database via a command-line interface (CLI).
+
+## Overview
+The Task Scheduler MVP is a lightweight C++ application designed to manage tasks based on priority using a max-heap priority queue. Tasks are executed non-preemptively, and their completion details are stored in a SQLite database. This project serves as a proof-of-concept for scheduling algorithms and database integration.
 
 ## Features
-
-Non-Preemptive Priority Scheduling: Tasks are executed based on priority (highest first) without interruption.
-
-Command-Line Interface (CLI): Add tasks, run the scheduler, and exit the program via simple commands.
-
-SQLite Logging: Task details (ID, priority, burst time, completion time) are logged to a SQLite database (data/tasks.db).
+- **Non-Preemptive Priority Scheduling**: Tasks are executed in order of priority (highest first) without interruption.
+- **CLI Interface**: Add tasks, run the scheduler, and exit using simple commands.
+- **SQLite Persistence**: Logs task details (ID, priority, burst time, completion time) to a database.
+- **Cross-Platform Build**: Uses CMake for portability (tested with MinGW).
 
 ## Prerequisites
+- **C++17 Compiler**: MinGW (recommended) or GCC/Clang.
+- **CMake**: Version 3.10 or higher for building the project.
+- **Git**: For cloning the repository.
 
-C++17 Compiler: MinGW (used in this project) or any compatible compiler.
+## Installation
 
-CMake: For building the project.
-
-SQLite: The project includes SQLite via the amalgamation source (sqlite3.c).
-
-## Directory Structure
-
-src/: Source files (main.cpp, task.cpp, scheduler.cpp, db_manager.cpp).
-
-data/: Directory for the SQLite database (tasks.db).
-
-build/: Build directory for compiled files.
-
-
-Task_Scheduler/
-
-├── src/
-|
-│   ├── main.cpp
-|
-│   ├── task.hpp
-|
-│   ├── task.cpp
-|
-│   ├── scheduler.hpp
-|
-│   ├── scheduler.cpp
-|
-│   ├── db_manager.hpp
-|
-│   ├── db_manager.cpp
-|
-├── data/
-|
-├── .gitignore
-|
-├── CMakeLists.txt
-|
-├── README.md
-
-## Build Instructions
-
-Clone the repository:git clone https://github.com/Opikadash/Task_Scheduler.git
-
-
+### Clone the Repository
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/Opikadash/Task_Scheduler.git
 cd Task_Scheduler
+```
 
-
-Create a build directory:mkdir build
+### Create Build Directory
+Create a build directory and navigate to it:
+```bash
+mkdir build
 cd build
+```
 
-Generate build files with CMake (using MinGW Makefiles):cmake .. -G "MinGW Makefiles"
+### Generate Build Files
+Generate build files with CMake:
+```bash
+cmake .. -G "MinGW Makefiles"
+```
 
+### Build the Project
+Build the project:
+```bash
+cmake --build .
+```
 
-Build the project:cmake --build .
-
-
-Run the executable:.\scheduler.exe
+### Run the Executable
+Run the executable:
+```bash
+./scheduler.exe  # Windows
+# or
+./scheduler      # Linux/Mac (if compiled accordingly)
+```
 
 ## Usage
-The program provides a CLI to interact with the scheduler:
+Interact with the scheduler via the CLI:
 
-Add a Task: add <task_id> <priority> <burst_time>
-Example: add 1 10 2 (Task ID: 1, Priority: 10, Burst Time: 2 seconds).
+### Add a Task
+Use the `add` command to add a task with a task ID, priority, and burst time:
+- **Syntax**: `add <task_id> <priority> <burst_time>`
+- **Example**: `add 1 10 2` (ID 1, priority 10, 2-second burst)
 
+### Run the Scheduler
+Use the `run` command to execute all tasks in priority order:
+- **Syntax**: `run`
 
-Run the Scheduler: run
-Executes all tasks in order of priority (highest first).
+### Exit the Program
+Use the `exit` command to terminate the program:
+- **Syntax**: `exit`
 
-
-## Exit the Program: exit
-
-Example Interaction
+### Example Interaction
+```plaintext
 Enter command (add/run/exit): add 1 10 2
 Enter command (add/run/exit): add 2 5 3
 Enter command (add/run/exit): run
 Enter command (add/run/exit): exit
+```
 
+### View Task Logs
+Tasks are logged to `data/tasks.db`. To view the log:
+```bash
+sqlite3 data/tasks.db "SELECT * FROM tasks;"
+```
 
-Tasks will be logged to data/tasks.db. To view:sqlite3 C:\Users\KIIT\Desktop\Project\TaskScheduler\data\tasks.db "SELECT * FROM tasks;"
-
+## Project Structure
+```
+TaskScheduler/
+├── src/
+│   ├── main.cpp           # Main entry point with CLI
+│   ├── task.hpp           # Task class definition
+│   ├── task.cpp           # Task class implementation
+│   ├── scheduler.hpp      # Scheduler and PriorityQueue definitions
+│   ├── scheduler.cpp      # Scheduler and PriorityQueue implementations
+│   ├── db_manager.hpp     # Database manager definition
+│   ├── db_manager.cpp     # Database manager implementation
+├── data/                  # Directory for tasks.db (SQLite database)
+├── .gitignore             # Git ignore file
+├── CMakeLists.txt         # CMake configuration
+└── README.md              # This file
+```
 
 ## Database Schema
-The tasks.db database contains a single table tasks with the following schema:
+The `tasks.db` SQLite database contains a `tasks` table with:
 
-task_id (INTEGER, PRIMARY KEY): Unique task identifier.
-priority (INTEGER): Task priority (higher values indicate higher priority).
-burst_time (INTEGER): Execution time in seconds.
-completion_time (TEXT): Timestamp when the task completed (e.g., "Thu May 15 09:50:00 2025").
+| Column            | Type    | Description                          |
+|-------------------|---------|--------------------------------------|
+| `task_id`         | INTEGER | Primary key, unique task identifier  |
+| `priority`        | INTEGER | Task priority (higher = higher priority) |
+| `burst_time`      | INTEGER | Execution time in seconds            |
+| `completion_time` | TEXT    | Timestamp of task completion         |
 
-## Advantages
 
-The project uses the SQLite amalgamation (sqlite3.c) for simplicity, so no external SQLite installation is required.
-The scheduler is non-preemptive: once a task starts, it runs to completion.
 
-## Build
-```powershell
-mkdir build
-cd build
-cmake .. -G "MinGW Makefiles"
-cmake --build .
-.\scheduler.exe
+## Acknowledgments
+- Inspired by operating system scheduling concepts.
+- Utilizes SQLite amalgamation for embedded database support.
