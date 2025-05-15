@@ -4,19 +4,25 @@ A C++ task scheduler that implements non-preemptive priority scheduling, manages
 ## Features
 
 Non-Preemptive Priority Scheduling: Tasks are executed based on priority (highest first) without interruption.
+
 Command-Line Interface (CLI): Add tasks, run the scheduler, and exit the program via simple commands.
+
 SQLite Logging: Task details (ID, priority, burst time, completion time) are logged to a SQLite database (data/tasks.db).
 
 ## Prerequisites
 
 C++17 Compiler: MinGW (used in this project) or any compatible compiler.
+
 CMake: For building the project.
+
 SQLite: The project includes SQLite via the amalgamation source (sqlite3.c).
 
 ## Directory Structure
 
 src/: Source files (main.cpp, task.cpp, scheduler.cpp, db_manager.cpp).
+
 data/: Directory for the SQLite database (tasks.db).
+
 build/: Build directory for compiled files.
 
 ## Build Instructions
