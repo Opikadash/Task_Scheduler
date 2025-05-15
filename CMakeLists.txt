@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(TaskScheduler)
+set(CMAKE_CXX_STANDARD 17)
+include_directories(C:/sqlite/sqlite-amalgamation-3490200)
+add_executable(scheduler src/main.cpp src/task.cpp src/scheduler.cpp src/db_manager.cpp C:/sqlite/sqlite-amalgamation-3490200/sqlite3.c)
+set_target_properties(scheduler PROPERTIES LINK_FLAGS "-mconsole")
